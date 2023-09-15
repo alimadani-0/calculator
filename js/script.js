@@ -2,7 +2,7 @@ let primaryDisplayValue = '';
 
 let primaryDisplay = document.querySelector('.primary-display');
 
-function updatePrimaryDisplay(event) {
+function inputDigit(event) {
     const input = event.currentTarget.textContent;
     if (input === '.') {
         if (primaryDisplayValue.includes(input)) {
@@ -27,7 +27,7 @@ function updatePrimaryDisplay(event) {
 function numbersEventListeners() {
     const numberButtons = document.querySelectorAll('.number');
     numberButtons.forEach(button => {
-        button.addEventListener('click', updatePrimaryDisplay)
+        button.addEventListener('click', inputDigit)
     })
 }
 

@@ -2,6 +2,14 @@ let primaryDisplayValue = '';
 
 let primaryDisplay = document.querySelector('.primary-display');
 
+const calc = {
+    '+': (a, b) => a + b,
+    '-': (a, b) => a - b,
+    'x': (a, b) => a * b,
+    '÷': (a, b) => a / b,
+    '%': a => a / 100,
+}
+
 function inputDigit(event) {
     const input = event.currentTarget.textContent;
     if (input === '.') {

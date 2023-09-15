@@ -48,10 +48,28 @@ function updateDisplayParams() {
 }
 
 function operatorHandler(event) {
-    const oper = event.currentTarget.textContent;
     const value = parseFloat(primaryDisplay.textContent);
+    const oper = event.currentTarget.textContent;
     updateCalculatorVariables(value, oper);
     updateDisplayParams();
+}
+
+function operate(value) {
+    return calc[operator](value, operand);
+}
+
+function equal() {
+    const value = parseFloat(primaryDisplay.textContent);
+    const result = operate(value);
+
+    secondaryDisplay.textContent = `${operand} ${operator} ${value} =`;
+    primaryDisplayValue = `${result}`;
+    primaryDisplay.textContent = primaryDisplayValue;
+}
+
+function actionHandler(event) {
+    const action = event.currentTarget.textContent;
+    if (action === '=') equal();
 }
 
 function numbersEventListeners() {
@@ -64,5 +82,11 @@ function operatorsEventListeners() {
     operatorButtons.forEach(button => button.addEventListener('click', operatorHandler));
 }
 
+function actionEventListeners() {
+    const actionButtons = document.querySelectorAll('.action');
+    actionButtons.forEach(button => button.addEventListener('click', actionHandler));
+}
+
 numbersEventListeners();
 operatorsEventListeners();
+actionEventListeners();

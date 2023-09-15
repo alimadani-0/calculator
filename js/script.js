@@ -1,6 +1,11 @@
 let primaryDisplayValue = '';
+// let secondaryDisplayValue = '';
+
+let operand = null;
+let operator = '';
 
 let primaryDisplay = document.querySelector('.primary-display');
+let secondaryDisplay = document.querySelector('.secondary-display');
 
 const calc = {
     '+': (a, b) => a + b,
@@ -32,11 +37,32 @@ function inputDigit(event) {
     primaryDisplay.textContent = primaryDisplayValue;
 }
 
-function numbersEventListeners() {
-    const numberButtons = document.querySelectorAll('.number');
-    numberButtons.forEach(button => {
-        button.addEventListener('click', inputDigit)
-    })
+function updateCalculatorVariables(value, oper) {
+    operand = value;
+    operator = oper;
 }
 
-numbersEventListeners()
+function updateDisplayParams() {
+    secondaryDisplay.textContent = operand + ' ' + operator;
+    primaryDisplayValue = '';
+}
+
+function operatorHandler(event) {
+    const oper = event.currentTarget.textContent;
+    const value = parseFloat(primaryDisplay.textContent);
+    updateCalculatorVariables(value, oper);
+    updateDisplayParams();
+}
+
+function numbersEventListeners() {
+    const numberButtons = document.querySelectorAll('.number');
+    numberButtons.forEach(button => button.addEventListener('click', inputDigit));
+}
+
+function operatorsEventListeners() {
+    const operatorButtons = document.querySelectorAll('.operator');
+    operatorButtons.forEach(button => button.addEventListener('click', operatorHandler));
+}
+
+numbersEventListeners();
+operatorsEventListeners();

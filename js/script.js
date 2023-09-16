@@ -84,10 +84,20 @@ function clear() {
     operatorPressed = true;
 }
 
+function allClear() {
+    operand = null;
+    operator = '';
+    operatorPressed = true;
+    secondaryDisplay.textContent = '';
+    primaryDisplayValue = '';
+    primaryDisplay.textContent = primaryDisplayValue;
+}
+
 function actionHandler(event) {
     const action = event.currentTarget.textContent;
     if (action === '=') equal();
     if (action === 'C') clear();
+    if (action === 'AC') allClear();
 }
 
 function numbersEventListeners() {

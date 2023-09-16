@@ -53,16 +53,18 @@ function updateDisplayParams() {
 function operatorHandler(event) {
     const oper = event.currentTarget.textContent;
     let value = 0;
-    if (operand && !operatorPressed) {
-        value = operate(parseFloat(primaryDisplay.textContent));
-    } else if (!operatorPressed) {
-        value = parseFloat(primaryDisplay.textContent);
-    } else {
-        value = operand;
+    if (operand || !operatorPressed) {
+        if (operand && !operatorPressed) {
+            value = operate(parseFloat(primaryDisplay.textContent));
+        } else if (!operatorPressed) {
+            value = parseFloat(primaryDisplay.textContent);
+        } else {
+            value = operand;
+        }
+        updateCalculatorVariables(value, oper);
+        updateDisplayParams();
+        operatorPressed = true;
     }
-    updateCalculatorVariables(value, oper);
-    updateDisplayParams();
-    operatorPressed = true;
 }
 
 function operate(value) {

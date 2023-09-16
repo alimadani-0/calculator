@@ -1,4 +1,6 @@
 body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #8C9EFF;
     margin: 0;
     width: 100vw;
     height: 100vh;
@@ -7,8 +9,19 @@ body {
     align-items: center;
 }
 
+.shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.red {
+    color: #EE514E;
+}
+
 #calculator {
-    border: 1px solid black;
+    background-color: #e9e9e9;
+    border-radius: 10px;
+    overflow: hidden;
     height: 400px;
     width: 320px;
     display: flex;
@@ -17,6 +30,8 @@ body {
 
 .display {
     flex: 30%;
+    padding: 12.5px;
+    font-weight: 500;
 
     display: flex;
     flex-direction: column;
@@ -28,16 +43,18 @@ body {
 }
 
 .secondary-display {
-    flex: 20%
+    flex: 20%;
 }
 
 .primary-display {
-    flex: 40%
+    flex: 40%;
+    font-size: 30px;
 }
 
 .buttons {
+    background-color: white;
+    border-radius: 10px;
     flex: 70%;
-    border-top: 1px solid black;
 
     display: flex;
     flex-direction: column;
@@ -53,7 +70,33 @@ body {
 
 .row button {
     flex: 0 0 20%;
-    height: 60%
+    height: 60%;
+    padding: 0;
+    background-color: white;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15),
+                0 3px 10px 0 rgba(0, 0, 0, 0.15);
+    font-weight: 500;
+}
+
+.number {
+    font-size: 18px;
+}
+
+.operator {
+    font-size: 24px;
+    color: #EE514E;
+}
+
+.action {
+    font-size: 18px;
+    color: #7F90E8;
+}
+
+#equal {
+    color: white;
+    background-color: #EE514E;
 }
 
 #zero {

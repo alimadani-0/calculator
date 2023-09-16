@@ -17,6 +17,10 @@ const calc = {
     '%': a => a / 100,
 }
 
+function crop(value) {
+    return value.toString().slice(0, 16);
+}
+
 function inputDigit(event) {
     if (equalPressed && !operatorPressed) allClear();
 
@@ -38,7 +42,7 @@ function inputDigit(event) {
             ? input
             : primaryDisplayValue + input;
     };
-    primaryDisplay.textContent = primaryDisplayValue;
+    primaryDisplay.textContent = crop(primaryDisplayValue);
 
     operatorPressed = false;
     equalPressed = false;
@@ -89,7 +93,7 @@ function equal() {
             + operator + '</span> ' + value
             + ' <span class="red">=</span>';
         primaryDisplayValue = `${result}`;
-        primaryDisplay.textContent = primaryDisplayValue;
+        primaryDisplay.textContent = crop(primaryDisplayValue);
 
         equalPressed = true;
     }

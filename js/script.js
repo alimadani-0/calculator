@@ -50,7 +50,10 @@ function updateCalculatorVariables(value, oper) {
 }
 
 function updateDisplayParams() {
-    secondaryDisplay.textContent = operand + ' ' + operator;
+    secondaryDisplay.innerHTML
+        = operand + ' '
+        + '<span class="red">' + operator
+        + '</span>';
     primaryDisplayValue = '';
 }
 
@@ -81,7 +84,10 @@ function equal() {
         const value = parseFloat(primaryDisplay.textContent);
         const result = operate(value);
 
-        secondaryDisplay.textContent = `${operand} ${operator} ${value} =`;
+        secondaryDisplay.innerHTML
+            = operand + ' <span class="red">'
+            + operator + '</span> ' + value
+            + ' <span class="red">=</span>';
         primaryDisplayValue = `${result}`;
         primaryDisplay.textContent = primaryDisplayValue;
 
@@ -103,7 +109,7 @@ function allClear() {
     operatorPressed = true;
     equalPressed = false;
 
-    secondaryDisplay.textContent = '';
+    secondaryDisplay.innerHTML = '';
     primaryDisplayValue = '';
     primaryDisplay.textContent = primaryDisplayValue;
 }
@@ -113,7 +119,8 @@ function percentage() {
     if (value) {
         const result = calc['%'](value);
 
-        secondaryDisplay.textContent = `${value} %`;
+        secondaryDisplay.innerHTML
+            = `${value} <span class="red">%</span>`;
         primaryDisplay.textContent = result;
     }
 }

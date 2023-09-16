@@ -1,5 +1,4 @@
 let primaryDisplayValue = '';
-// let secondaryDisplayValue = '';
 
 let operand = null;
 let operator = '';
@@ -107,11 +106,20 @@ function allClear() {
     primaryDisplay.textContent = primaryDisplayValue;
 }
 
+function percentage() {
+    const value = parseFloat(primaryDisplay.textContent);
+    const result = calc['%'](value);
+
+    secondaryDisplay.textContent = `${value} %`;
+    primaryDisplay.textContent = result;
+}
+
 function actionHandler(event) {
     const action = event.currentTarget.textContent;
     if (action === '=') equal();
     if (action === 'C') clear();
     if (action === 'AC') allClear();
+    if (action === '%') percentage();
 }
 
 function numbersEventListeners() {

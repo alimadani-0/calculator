@@ -81,6 +81,14 @@ body {
     font-weight: 500;
 }
 
+.row button:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.row button:active {
+    background-color: rgb(235, 235, 235);
+}
+
 .number {
     font-size: 18px;
 }
@@ -98,6 +106,14 @@ body {
 #equal {
     color: white;
     background-color: #EE514E;
+}
+
+#equal:hover {
+    background-color: #E64946;
+}
+
+#equal:active {
+    background-color: #DE413E;
 }
 
 #zero {

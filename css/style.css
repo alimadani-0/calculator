@@ -52,6 +52,7 @@ body {
 }
 
 .buttons {
+    padding: 10px 0px;
     background-color: white;
     border-radius: 10px;
     flex: 70%;

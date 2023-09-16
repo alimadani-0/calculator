@@ -5,6 +5,7 @@ let operand = null;
 let operator = '';
 
 let operatorPressed = true;
+let equalPressed = false;
 
 let primaryDisplay = document.querySelector('.primary-display');
 let secondaryDisplay = document.querySelector('.secondary-display');
@@ -37,7 +38,9 @@ function inputDigit(event) {
             : primaryDisplayValue + input;
     };
     primaryDisplay.textContent = primaryDisplayValue;
+
     operatorPressed = false;
+    equalPressed = false;
 }
 
 function updateCalculatorVariables(value, oper) {
@@ -54,7 +57,7 @@ function operatorHandler(event) {
     const oper = event.currentTarget.textContent;
     let value = 0;
     if (operand || !operatorPressed) {
-        if (operand && !operatorPressed) {
+        if (operand && !operatorPressed && !equalPressed) {
             value = operate(parseFloat(primaryDisplay.textContent));
         } else if (!operatorPressed) {
             value = parseFloat(primaryDisplay.textContent);
@@ -63,6 +66,7 @@ function operatorHandler(event) {
         }
         updateCalculatorVariables(value, oper);
         updateDisplayParams();
+
         operatorPressed = true;
     }
 }
@@ -72,24 +76,32 @@ function operate(value) {
 }
 
 function equal() {
-    const value = parseFloat(primaryDisplay.textContent);
-    const result = operate(value);
+    if (!equalPressed) {
+        const value = parseFloat(primaryDisplay.textContent);
+        const result = operate(value);
 
-    secondaryDisplay.textContent = `${operand} ${operator} ${value} =`;
-    primaryDisplayValue = `${result}`;
-    primaryDisplay.textContent = primaryDisplayValue;
+        secondaryDisplay.textContent = `${operand} ${operator} ${value} =`;
+        primaryDisplayValue = `${result}`;
+        primaryDisplay.textContent = primaryDisplayValue;
+
+        equalPressed = true;
+    }
 }
 
 function clear() {
     primaryDisplayValue = '';
     primaryDisplay.textContent = primaryDisplayValue;
+
     operatorPressed = true;
 }
 
 function allClear() {
     operand = null;
     operator = '';
+
     operatorPressed = true;
+    equalPressed = false;
+
     secondaryDisplay.textContent = '';
     primaryDisplayValue = '';
     primaryDisplay.textContent = primaryDisplayValue;

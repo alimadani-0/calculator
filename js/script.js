@@ -78,9 +78,16 @@ function equal() {
     primaryDisplay.textContent = primaryDisplayValue;
 }
 
+function clear() {
+    primaryDisplayValue = '';
+    primaryDisplay.textContent = primaryDisplayValue;
+    operatorPressed = true;
+}
+
 function actionHandler(event) {
     const action = event.currentTarget.textContent;
     if (action === '=') equal();
+    if (action === 'C') clear();
 }
 
 function numbersEventListeners() {

@@ -7,6 +7,8 @@ This repository is for the 'Calculator' project done as part of the **The Odin P
 - [X] Basic UI to test functions
 - [X] Expanded calculator functionality (0, Dot, Del, +/-, %)
 - [X] Full UI design implementation
+- [ ] Special handling for divison by 0
+- [ ] Keyboard support
 - [ ] Dark theme
 
 ### Reflection

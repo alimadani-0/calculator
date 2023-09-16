@@ -112,10 +112,12 @@ function allClear() {
 
 function percentage() {
     const value = parseFloat(primaryDisplay.textContent);
-    const result = calc['%'](value);
+    if (value) {
+        const result = calc['%'](value);
 
-    secondaryDisplay.textContent = `${value} %`;
-    primaryDisplay.textContent = result;
+        secondaryDisplay.textContent = `${value} %`;
+        primaryDisplay.textContent = result;
+    }
 }
 
 function actionHandler(event) {

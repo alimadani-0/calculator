@@ -4,12 +4,14 @@ let primaryDisplayValue = '';
 let operand = null;
 let operator = '';
 
+let operatorPressed = false;
+
 let primaryDisplay = document.querySelector('.primary-display');
 let secondaryDisplay = document.querySelector('.secondary-display');
 
 const calc = {
     '+': (a, b) => a + b,
-    '-': (a, b) => a - b,
+    '-': (a, b) => b - a,
     'x': (a, b) => a * b,
     '÷': (a, b) => a / b,
     '%': a => a / 100,
@@ -35,6 +37,7 @@ function inputDigit(event) {
             : primaryDisplayValue + input;
     };
     primaryDisplay.textContent = primaryDisplayValue;
+    operatorPressed = false;
 }
 
 function updateCalculatorVariables(value, oper) {
@@ -48,10 +51,18 @@ function updateDisplayParams() {
 }
 
 function operatorHandler(event) {
-    const value = parseFloat(primaryDisplay.textContent);
     const oper = event.currentTarget.textContent;
+    let value = 0;
+    if (operand && !operatorPressed) {
+        value = operate(parseFloat(primaryDisplay.textContent));
+    } else if (!operatorPressed) {
+        value = parseFloat(primaryDisplay.textContent);
+    } else {
+        value = operand;
+    }
     updateCalculatorVariables(value, oper);
     updateDisplayParams();
+    operatorPressed = true;
 }
 
 function operate(value) {

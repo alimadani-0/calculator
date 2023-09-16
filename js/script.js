@@ -11,7 +11,7 @@ let secondaryDisplay = document.querySelector('.secondary-display');
 
 const calc = {
     '+': (a, b) => a + b,
-    '-': (a, b) => b - a,
+    '-': (a, b) => a - b,
     'x': (a, b) => a * b,
     '÷': (a, b) => a / b,
     '%': a => a / 100,
@@ -68,7 +68,7 @@ function operatorHandler(event) {
 }
 
 function operate(value) {
-    return calc[operator](value, operand);
+    return calc[operator](operand, value);
 }
 
 function equal() {

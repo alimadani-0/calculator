@@ -4,7 +4,7 @@ let primaryDisplayValue = '';
 let operand = null;
 let operator = '';
 
-let operatorPressed = false;
+let operatorPressed = true;
 
 let primaryDisplay = document.querySelector('.primary-display');
 let secondaryDisplay = document.querySelector('.secondary-display');

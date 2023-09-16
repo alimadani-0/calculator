@@ -18,6 +18,11 @@ const calc = {
 }
 
 function inputDigit(event) {
+    if (equalPressed) {
+        allClear();
+        equalPressed = false;
+    }
+
     const input = event.currentTarget.textContent;
     if (input === '.') {
         if (primaryDisplayValue.includes(input)) {
@@ -39,7 +44,6 @@ function inputDigit(event) {
     primaryDisplay.textContent = primaryDisplayValue;
 
     operatorPressed = false;
-    equalPressed = false;
 }
 
 function updateCalculatorVariables(value, oper) {

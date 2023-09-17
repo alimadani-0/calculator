@@ -1,5 +1,5 @@
 const ACTIONS_KEYBOARD_CODES = ['Enter', ['Backspace', 'Delete'],
-                                'Escape', '='];
+                                'Escape', '=', '%'];
 
 let primaryDisplayValue = '';
 

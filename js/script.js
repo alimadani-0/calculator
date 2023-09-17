@@ -21,6 +21,9 @@ const calc = {
     '%': a => a / 100,
 }
 
+calc['*'] = calc['x'];
+calc['/'] = calc['÷'];
+
 function crop(value) {
     return value.toString().slice(0, 16);
 }
@@ -72,8 +75,7 @@ function updateDisplayParams() {
     primaryDisplayValue = '';
 }
 
-function operatorHandler(event) {
-    const oper = event.currentTarget.textContent;
+function useOperator(oper) {
     let value = 0;
     if (!infinityResult && (operand || !operatorPressed)) {
         if (operand && !operatorPressed && !equalPressed) {
@@ -88,6 +90,11 @@ function operatorHandler(event) {
 
         operatorPressed = true;
     }
+}
+
+function operatorHandler(event) {
+    if (event.type === 'keydown') useOperator(event.key); 
+    else useOperator(event.currentTarget.textContent);
 }
 
 function operate(value) {
@@ -168,6 +175,8 @@ function keyboardHandler(event) {
         digitHandler(event);
     } else if (ACTIONS_KEYBOARD_CODES.flat().includes(key)) {
         actionHandler(event);
+    } else if (['+', '-', '*', '/'].includes(key)) {
+        operatorHandler(event);
     };
 }
 

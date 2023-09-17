@@ -5,6 +5,7 @@ let operator = '';
 
 let operatorPressed = true;
 let equalPressed = false;
+let infinityResult = false;
 
 let primaryDisplay = document.querySelector('.primary-display');
 let secondaryDisplay = document.querySelector('.secondary-display');
@@ -22,7 +23,7 @@ function crop(value) {
 }
 
 function inputDigit(event) {
-    if (equalPressed && !operatorPressed) allClear();
+    if ((equalPressed && !operatorPressed) || infinityResult) allClear();
 
     const input = event.currentTarget.textContent;
     if (input === '.') {
@@ -46,6 +47,7 @@ function inputDigit(event) {
 
     operatorPressed = false;
     equalPressed = false;
+    infinityResult = false;
 }
 
 function updateCalculatorVariables(value, oper) {
@@ -64,7 +66,7 @@ function updateDisplayParams() {
 function operatorHandler(event) {
     const oper = event.currentTarget.textContent;
     let value = 0;
-    if (operand || !operatorPressed) {
+    if (!infinityResult && (operand || !operatorPressed)) {
         if (operand && !operatorPressed && !equalPressed) {
             value = operate(parseFloat(primaryDisplay.textContent));
         } else if (!operatorPressed) {
@@ -80,11 +82,14 @@ function operatorHandler(event) {
 }
 
 function operate(value) {
-    return calc[operator](operand, value);
+    const result = calc[operator](operand, value);
+    if (result !== Infinity) return result;
+    infinityResult = true;
+    return '😵';
 }
 
 function equal() {
-    if (!equalPressed) {
+    if (!equalPressed && !infinityResult) {
         const value = parseFloat(primaryDisplay.textContent);
         const result = operate(value);
 
@@ -112,6 +117,7 @@ function allClear() {
 
     operatorPressed = true;
     equalPressed = false;
+    infinityResult = false;
 
     secondaryDisplay.innerHTML = '';
     primaryDisplayValue = '';

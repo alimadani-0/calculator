@@ -1,3 +1,5 @@
+const DOT = ['Period', 'NumpadDecimal'];
+
 let primaryDisplayValue = '';
 
 let operand = null;
@@ -6,6 +8,7 @@ let operator = '';
 let operatorPressed = true;
 let equalPressed = false;
 let infinityResult = false;
+let shiftPressed = false;
 
 let primaryDisplay = document.querySelector('.primary-display');
 let secondaryDisplay = document.querySelector('.secondary-display');
@@ -22,10 +25,10 @@ function crop(value) {
     return value.toString().slice(0, 16);
 }
 
-function inputDigit(event) {
+function inputDigit(input) {
     if ((equalPressed && !operatorPressed) || infinityResult) allClear();
 
-    const input = event.currentTarget.textContent;
+    // const input = event.currentTarget.textContent;
     if (input === '.') {
         if (primaryDisplayValue.includes(input)) {
             primaryDisplayValue = primaryDisplayValue;
@@ -48,6 +51,14 @@ function inputDigit(event) {
     operatorPressed = false;
     equalPressed = false;
     infinityResult = false;
+}
+
+function digitHandler(event) {
+    let input = '';
+    if (event.type === 'click') input = event.currentTarget.textContent;
+    if (event.type === 'keydown') input = event.code.substr(-1);
+    if (DOT.includes(input)) input = '.';
+    inputDigit(input);
 }
 
 function updateCalculatorVariables(value, oper) {
@@ -143,9 +154,20 @@ function actionHandler(event) {
     if (action === '%') percentage();
 }
 
+function keyboardHandler(event) {
+    const code = event.code;
+    if (!isNaN(code.substr(-1))) {
+        if (code.includes('Numpad') || code.includes('Digit')) {
+            digitHandler(event);
+        };
+    } else if (DOT.includes(code)) {
+        digitHandler(event);
+    }
+}
+
 function numbersEventListeners() {
     const numberButtons = document.querySelectorAll('.number');
-    numberButtons.forEach(button => button.addEventListener('click', inputDigit));
+    numberButtons.forEach(button => button.addEventListener('click', digitHandler));
 }
 
 function operatorsEventListeners() {
@@ -158,6 +180,11 @@ function actionEventListeners() {
     actionButtons.forEach(button => button.addEventListener('click', actionHandler));
 }
 
+function keyboardEventListener() {
+    document.addEventListener('keydown', keyboardHandler);
+}
+
 numbersEventListeners();
 operatorsEventListeners();
 actionEventListeners();
+keyboardEventListener();

@@ -1,4 +1,7 @@
 const DOT = ['Period', 'NumpadDecimal'];
+const ACTIONS_KEYBOARD_CODES = [['Equal', 'NumpadEqual'],
+                                ['Backspace', 'Delete'],
+                                'Escape']
 
 let primaryDisplayValue = '';
 
@@ -28,7 +31,6 @@ function crop(value) {
 function inputDigit(input) {
     if ((equalPressed && !operatorPressed) || infinityResult) allClear();
 
-    // const input = event.currentTarget.textContent;
     if (input === '.') {
         if (primaryDisplayValue.includes(input)) {
             primaryDisplayValue = primaryDisplayValue;
@@ -147,10 +149,19 @@ function percentage() {
 }
 
 function actionHandler(event) {
-    const action = event.currentTarget.textContent;
+    let action = '';
+    if (event.type === 'click') action = event.currentTarget.textContent;
+    if (event.type === 'keydown') action = event.code;
+
     if (action === '=') equal();
+    if (ACTIONS_KEYBOARD_CODES[0].includes(action)) equal();
+
     if (action === 'C') clear();
+    if (ACTIONS_KEYBOARD_CODES[1].includes(action)) clear();
+
     if (action === 'AC') allClear();
+    if (action === ACTIONS_KEYBOARD_CODES[2]) allClear();
+
     if (action === '%') percentage();
 }
 
@@ -162,6 +173,8 @@ function keyboardHandler(event) {
         };
     } else if (DOT.includes(code)) {
         digitHandler(event);
+    } else if (ACTIONS_KEYBOARD_CODES.flat().includes(code)) {
+        actionHandler(event);
     }
 }
 

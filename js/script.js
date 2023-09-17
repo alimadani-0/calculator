@@ -1,7 +1,5 @@
-const DOT = ['Period', 'NumpadDecimal'];
-const ACTIONS_KEYBOARD_CODES = [['Equal', 'NumpadEqual'],
-                                ['Backspace', 'Delete'],
-                                'Escape']
+const ACTIONS_KEYBOARD_CODES = ['Enter', ['Backspace', 'Delete'],
+                                'Escape', '='];
 
 let primaryDisplayValue = '';
 
@@ -11,7 +9,6 @@ let operator = '';
 let operatorPressed = true;
 let equalPressed = false;
 let infinityResult = false;
-let shiftPressed = false;
 
 let primaryDisplay = document.querySelector('.primary-display');
 let secondaryDisplay = document.querySelector('.secondary-display');
@@ -58,8 +55,7 @@ function inputDigit(input) {
 function digitHandler(event) {
     let input = '';
     if (event.type === 'click') input = event.currentTarget.textContent;
-    if (event.type === 'keydown') input = event.code.substr(-1);
-    if (DOT.includes(input)) input = '.';
+    if (event.type === 'keydown') input = event.key;
     inputDigit(input);
 }
 
@@ -151,10 +147,10 @@ function percentage() {
 function actionHandler(event) {
     let action = '';
     if (event.type === 'click') action = event.currentTarget.textContent;
-    if (event.type === 'keydown') action = event.code;
+    if (event.type === 'keydown') action = event.key;
 
     if (action === '=') equal();
-    if (ACTIONS_KEYBOARD_CODES[0].includes(action)) equal();
+    if (action === ACTIONS_KEYBOARD_CODES[0]) equal();
 
     if (action === 'C') clear();
     if (ACTIONS_KEYBOARD_CODES[1].includes(action)) clear();
@@ -166,16 +162,12 @@ function actionHandler(event) {
 }
 
 function keyboardHandler(event) {
-    const code = event.code;
-    if (!isNaN(code.substr(-1))) {
-        if (code.includes('Numpad') || code.includes('Digit')) {
-            digitHandler(event);
-        };
-    } else if (DOT.includes(code)) {
+    const key = event.key;
+    if (key === '.' || (!isNaN(key) && key !== ' ')) {
         digitHandler(event);
-    } else if (ACTIONS_KEYBOARD_CODES.flat().includes(code)) {
+    } else if (ACTIONS_KEYBOARD_CODES.flat().includes(key)) {
         actionHandler(event);
-    }
+    };
 }
 
 function numbersEventListeners() {

@@ -162,6 +162,7 @@ function actionHandler(event) {
 }
 
 function keyboardHandler(event) {
+    event.preventDefault();
     const key = event.key;
     if (key === '.' || (!isNaN(key) && key !== ' ')) {
         digitHandler(event);
